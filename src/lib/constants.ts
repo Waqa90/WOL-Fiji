@@ -36,7 +36,6 @@ export const FOLLOW_UP_STATUSES = [
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Musicians', href: '/musicians' },
   { label: 'Branches', href: '/branches' },
   { label: 'Events', href: '/events' },
   { label: 'Sermons', href: '/coming-soon' },

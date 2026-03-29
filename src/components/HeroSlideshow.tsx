@@ -33,7 +33,7 @@ export default function HeroSlideshow() {
             src={`/images/${slide}`}
             alt={`Slide ${idx + 1}`}
             fill
-            className="object-cover object-center"
+            className="object-cover object-top"
             priority={idx === 0}
             quality={85}
           />

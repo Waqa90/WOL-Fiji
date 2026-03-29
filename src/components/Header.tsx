@@ -14,18 +14,18 @@ export default function Header() {
       <div className="container-max px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/images/WOL-logo.JPG"
-              alt="WOL Logo"
-              width={50}
-              height={50}
-              className="rounded-full"
+              src="/images/WOL-logo.png"
+              alt="Word of Life Worship Centre Fiji"
+              width={64}
+              height={64}
+              className="object-contain"
               priority
             />
             <div>
-              <h1 className="text-lg font-heading font-bold text-primary leading-tight">WOL</h1>
-              <p className="text-xs text-primary font-semibold tracking-wider">Fiji</p>
+              <h1 className="text-xl font-heading font-bold text-primary leading-tight">Word of Life</h1>
+              <p className="text-sm text-primary font-semibold tracking-wider">Worship Centre Fiji</p>
             </div>
           </Link>
 
@@ -35,12 +35,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-neutral-800 hover:text-primary font-medium transition-colors rounded-lg hover:bg-neutral-100"
+                className="px-4 py-2 text-base text-neutral-800 hover:text-primary font-semibold transition-colors rounded-lg hover:bg-neutral-100"
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/admin" className="ml-4 btn-primary text-sm">
+            <Link href="/admin" className="ml-4 btn-primary">
               Admin Login
             </Link>
           </nav>
