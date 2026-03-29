@@ -1,26 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import sql from '@/lib/db'
 import { getServerSession } from 'next-auth'
 import bcrypt from 'bcryptjs'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession()
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const supabase = createServerClient()
-
-    const { data, error } = await supabase
-      .from('users')
-      .select('id, email, name, phone, is_active, created_at, last_login, user_roles(access_level, branch_id, branches(name))')
-      .order('created_at', { ascending: false })
-
-    if (error) throw error
-
-    return NextResponse.json(data)
-  } catch (error) {
+    const users = await sql`
+      SELECT u.id, u.email, u.name, u.phone, u.is_active, u.created_at, u.last_login,
+        json_agg(json_build_object('access_level', ur.access_level, 'branch_id', ur.branch_id, 'branch_name', b.name)) FILTER (WHERE ur.id IS NOT NULL) as user_roles
+      FROM users u
+      LEFT JOIN user_roles ur ON ur.user_id = u.id
+      LEFT JOIN branches b ON b.id = ur.branch_id
+      GROUP BY u.id ORDER BY u.created_at DESC
+    `
+    return NextResponse.json(users)
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 })
   }
 }
@@ -28,55 +25,26 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession()
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const body = await request.json()
-    const { email, name, password, roles } = body
+    const adminId = (session.user as any).id
+    const { email, name, password, roles } = await request.json()
 
-    if (!email || !name || !password) {
-      return NextResponse.json({ error: 'Email, name, and password required' }, { status: 400 })
-    }
+    if (!email || !name || !password) return NextResponse.json({ error: 'Email, name, and password are required' }, { status: 400 })
 
-    const supabase = createServerClient()
     const passwordHash = await bcrypt.hash(password, 12)
+    const [user] = await sql`INSERT INTO users (email, name, password_hash, created_by) VALUES (${email}, ${name}, ${passwordHash}, ${adminId}) RETURNING id, email, name`
 
-    const { data: user, error } = await supabase
-      .from('users')
-      .insert({
-        email,
-        name,
-        password_hash: passwordHash,
-        created_by: (session.user as any).id,
-      })
-      .select()
-      .single()
-
-    if (error) throw error
-
-    // Assign roles
-    if (roles && roles.length > 0) {
-      const roleInserts = roles.map((role: any) => ({
-        user_id: user.id,
-        access_level: role.access_level,
-        branch_id: role.branch_id || null,
-        assigned_by: (session.user as any).id,
-      }))
-
-      await supabase.from('user_roles').insert(roleInserts)
+    if (roles?.length > 0) {
+      for (const role of roles) {
+        await sql`INSERT INTO user_roles (user_id, access_level, branch_id, assigned_by) VALUES (${user.id}, ${role.access_level}, ${role.branch_id || null}, ${adminId}) ON CONFLICT DO NOTHING`
+      }
     }
 
-    await supabase.from('audit_log').insert({
-      action: 'user_created',
-      table_name: 'users',
-      record_id: user.id,
-      changed_by: (session.user as any).id,
-      new_value: { email, name, roles },
-    })
+    await sql`INSERT INTO audit_log (action, table_name, record_id, changed_by, new_value) VALUES ('user_created', 'users', ${user.id}, ${adminId}, ${JSON.stringify({ email, name })}::jsonb)`
 
-    return NextResponse.json({ id: user.id, email: user.email, name: user.name }, { status: 201 })
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 })
+    return NextResponse.json(user, { status: 201 })
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Failed to create user' }, { status: 500 })
   }
 }

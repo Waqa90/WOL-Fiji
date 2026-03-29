@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { createServerClient } from '@/lib/supabase'
+import sql from '@/lib/db'
 import bcrypt from 'bcryptjs'
 
 const handler = NextAuth({
@@ -14,37 +14,25 @@ const handler = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
 
-        const supabase = createServerClient()
-
-        const { data: user, error } = await supabase
-          .from('users')
-          .select('*')
-          .eq('email', credentials.email)
-          .eq('is_active', true)
-          .single()
-
-        if (error || !user) return null
+        const [user] = await sql`
+          SELECT * FROM users WHERE email = ${credentials.email} AND is_active = true
+        `
+        if (!user) return null
 
         const isValid = await bcrypt.compare(credentials.password, user.password_hash)
         if (!isValid) return null
 
-        // Get user roles
-        const { data: roles } = await supabase
-          .from('user_roles')
-          .select('access_level, branch_id')
-          .eq('user_id', user.id)
+        const roles = await sql`
+          SELECT access_level, branch_id FROM user_roles WHERE user_id = ${user.id}
+        `
 
-        // Update last login
-        await supabase
-          .from('users')
-          .update({ last_login: new Date().toISOString() })
-          .eq('id', user.id)
+        await sql`UPDATE users SET last_login = NOW() WHERE id = ${user.id}`
 
         return {
           id: user.id,
           email: user.email,
           name: user.name,
-          roles: roles || [],
+          roles: roles,
           is_first_login: user.is_first_login,
         }
       },
@@ -68,12 +56,8 @@ const handler = NextAuth({
       return session
     },
   },
-  pages: {
-    signIn: '/admin/login',
-  },
-  session: {
-    strategy: 'jwt',
-  },
+  pages: { signIn: '/admin/login' },
+  session: { strategy: 'jwt' },
   secret: process.env.NEXTAUTH_SECRET,
 })
 

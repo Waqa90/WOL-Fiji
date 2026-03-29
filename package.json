@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@supabase/supabase-js": "^2.39.0",
     "@types/node": "^18.19.130",
     "@types/react": "^18.3.28",
