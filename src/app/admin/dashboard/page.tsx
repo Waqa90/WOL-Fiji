@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import {
   Users, DollarSign, BookOpen, Settings,
-  LogOut, Bell, ChevronRight, BarChart3, MapPin
+  LogOut, Bell, ChevronRight, BarChart3, MapPin, Music, FileText
 } from 'lucide-react'
 import { BRANCHES, ACCESS_LEVELS } from '@/lib/constants'
 
@@ -17,8 +17,10 @@ function Sidebar() {
 
   const navItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: BarChart3, minLevel: 1 },
+    { href: '/admin/music', label: 'Music Lab', icon: Music, minLevel: 1 },
     { href: '/admin/members', label: 'Members', icon: Users, minLevel: 5 },
     { href: '/admin/finance', label: 'Finance', icon: DollarSign, minLevel: 4 },
+    { href: '/admin/assets', label: 'Assets', icon: FileText, minLevel: 3 },
     { href: '/admin/users', label: 'User Management', icon: Settings, minLevel: 7 },
     { href: '/admin/audit-log', label: 'Audit Log', icon: BookOpen, minLevel: 7 },
   ].filter(item => maxLevel >= item.minLevel)
@@ -105,6 +107,8 @@ export default function DashboardPage() {
   const quickLinks = [
     { label: 'Add Member', href: '/admin/members/new', show: maxLevel >= 5 },
     { label: 'Finance Entry', href: '/admin/finance/new', show: maxLevel >= 4 },
+    { label: 'Manage Roster', href: '/admin/music', show: maxLevel >= 1 },
+    { label: 'Upload Assets', href: '/admin/assets', show: maxLevel >= 3 },
     { label: 'Create User', href: '/admin/users/new', show: maxLevel >= 7 },
     { label: 'View Audit Log', href: '/admin/audit-log', show: maxLevel >= 7 },
     { label: 'View All Members', href: '/admin/members', show: maxLevel >= 5 },
