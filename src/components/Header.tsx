@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants'
@@ -13,13 +14,18 @@ export default function Header() {
       <div className="container-max px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-heading text-xl font-bold">W</span>
-            </div>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/images/WOL-logo.JPG"
+              alt="WOL Logo"
+              width={50}
+              height={50}
+              className="rounded-full"
+              priority
+            />
             <div>
-              <h1 className="text-xl font-heading font-bold text-primary leading-tight">Word of Life</h1>
-              <p className="text-xs text-accent font-semibold tracking-wider uppercase">Fiji Islands</p>
+              <h1 className="text-lg font-heading font-bold text-primary leading-tight">WOL</h1>
+              <p className="text-xs text-primary font-semibold tracking-wider">Fiji</p>
             </div>
           </Link>
 

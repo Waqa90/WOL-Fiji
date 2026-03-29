@@ -19,7 +19,7 @@ export default function Footer() {
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               A Christ-centered church serving communities across the Fiji Islands.
-              Part of the Word of Life global family.
+              Part of the Word of Life Worship Centre.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-600 mt-12 pt-8 text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Word of Life Fiji. All rights reserved.</p>
-          <p className="mt-1">Part of the <span className="text-accent">Word of Life</span> global family.</p>
+          <p className="mt-1">Part of the <span className="text-accent">Word of Life Worship Centre</span>.</p>
         </div>
       </div>
     </footer>

@@ -165,12 +165,45 @@ async function migrate() {
     instruments TEXT[],
     bio TEXT,
     photo_url TEXT,
+    instrument_specialty VARCHAR(100),
+    video_url TEXT,
+    lyrics_text TEXT,
     branch_id UUID REFERENCES branches(id),
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
   )`
   console.log('OK musicians')
+
+  await sql`CREATE TABLE IF NOT EXISTS music_roster (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    schedule_type VARCHAR(20) NOT NULL CHECK (schedule_type IN ('saturday_practice', 'sunday_service')),
+    schedule_date DATE NOT NULL,
+    musicians UUID[],
+    songs TEXT[],
+    notes TEXT,
+    created_by UUID NOT NULL REFERENCES users(id),
+    updated_by UUID REFERENCES users(id),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    branch_id UUID NOT NULL REFERENCES branches(id),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(schedule_type, schedule_date, branch_id)
+  )`
+  console.log('OK music_roster')
+
+  await sql`CREATE TABLE IF NOT EXISTS asset_uploads (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    file_name VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50) NOT NULL CHECK (file_type IN ('image', 'video', 'document')),
+    file_size INT,
+    file_url TEXT NOT NULL,
+    uploaded_by UUID NOT NULL REFERENCES users(id),
+    branch_id UUID REFERENCES branches(id),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    is_public BOOLEAN DEFAULT FALSE,
+    description TEXT
+  )`
+  console.log('OK asset_uploads')
 
   await sql`CREATE TABLE IF NOT EXISTS audit_log (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -194,6 +227,11 @@ async function migrate() {
   await sql`CREATE INDEX IF NOT EXISTS idx_finance_date ON finance_entries(entry_date)`
   await sql`CREATE INDEX IF NOT EXISTS idx_audit_date ON audit_log(created_at)`
   await sql`CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_log(changed_by)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_music_roster_branch ON music_roster(branch_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_music_roster_date ON music_roster(schedule_date)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_assets_branch ON asset_uploads(branch_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_assets_type ON asset_uploads(file_type)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_assets_created ON asset_uploads(created_at)`
   console.log('OK indexes')
 
   await sql`INSERT INTO access_levels (id, name, description, permissions) VALUES

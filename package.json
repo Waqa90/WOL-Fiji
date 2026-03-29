@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.39.0",
     "@types/node": "^18.19.130",
     "@types/react": "^18.3.28",
+    "@vercel/blob": "^0.23.4",
     "autoprefixer": "^10.4.27",
     "bcryptjs": "^3.0.3",
     "lucide-react": "^1.7.0",

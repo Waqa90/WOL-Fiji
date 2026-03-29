@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import Hero from '@/components/Hero'
+import HeroSlideshow from '@/components/HeroSlideshow'
 import SectionHeading from '@/components/SectionHeading'
 import { BRANCHES } from '@/lib/constants'
 import { MapPin, Clock, Users, Heart, BookOpen, Music } from 'lucide-react'
@@ -11,14 +11,8 @@ export default function HomePage() {
     <>
       <Header />
       <main>
-        {/* Hero */}
-        <Hero
-          subtitle="Welcome to"
-          title="Word of Life Fiji"
-          description="A Christ-centered church serving communities across the beautiful Fiji Islands. Join us in worship, fellowship, and growing together in faith."
-          primaryAction={{ label: 'Visit a Branch', href: '/branches' }}
-          secondaryAction={{ label: 'Give Online', href: '/donate' }}
-        />
+        {/* Hero Slideshow */}
+        <HeroSlideshow />
 
         {/* Welcome Section */}
         <section className="section-padding bg-white">
