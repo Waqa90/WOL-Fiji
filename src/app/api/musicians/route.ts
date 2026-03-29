@@ -9,28 +9,40 @@ export async function GET(request: NextRequest) {
     const instrumentFilter = searchParams.get('instrument')
     const branchFilter = searchParams.get('branch')
 
-    let query = `
-      SELECT m.*, COALESCE(json_agg(json_build_object('level', ur.access_level, 'branch_id', ur.branch_id)) FILTER (WHERE ur.user_id IS NOT NULL), '[]'::json) as roles
-      FROM musicians m
-      LEFT JOIN user_roles ur ON m.user_id = ur.user_id
-      WHERE m.is_active = TRUE
-    `
-
-    const params: any[] = []
-
-    if (instrumentFilter) {
-      query += ` AND m.instrument_specialty = $${params.length + 1}`
-      params.push(instrumentFilter)
+    let musicians
+    if (instrumentFilter && branchFilter) {
+      musicians = await sql`
+        SELECT m.*, COALESCE(json_agg(json_build_object('level', ur.access_level, 'branch_id', ur.branch_id)) FILTER (WHERE ur.user_id IS NOT NULL), '[]'::json) as roles
+        FROM musicians m
+        LEFT JOIN user_roles ur ON m.user_id = ur.user_id
+        WHERE m.is_active = TRUE AND m.instrument_specialty = ${instrumentFilter} AND m.branch_id = ${branchFilter}
+        GROUP BY m.id ORDER BY m.name
+      `
+    } else if (instrumentFilter) {
+      musicians = await sql`
+        SELECT m.*, COALESCE(json_agg(json_build_object('level', ur.access_level, 'branch_id', ur.branch_id)) FILTER (WHERE ur.user_id IS NOT NULL), '[]'::json) as roles
+        FROM musicians m
+        LEFT JOIN user_roles ur ON m.user_id = ur.user_id
+        WHERE m.is_active = TRUE AND m.instrument_specialty = ${instrumentFilter}
+        GROUP BY m.id ORDER BY m.name
+      `
+    } else if (branchFilter) {
+      musicians = await sql`
+        SELECT m.*, COALESCE(json_agg(json_build_object('level', ur.access_level, 'branch_id', ur.branch_id)) FILTER (WHERE ur.user_id IS NOT NULL), '[]'::json) as roles
+        FROM musicians m
+        LEFT JOIN user_roles ur ON m.user_id = ur.user_id
+        WHERE m.is_active = TRUE AND m.branch_id = ${branchFilter}
+        GROUP BY m.id ORDER BY m.name
+      `
+    } else {
+      musicians = await sql`
+        SELECT m.*, COALESCE(json_agg(json_build_object('level', ur.access_level, 'branch_id', ur.branch_id)) FILTER (WHERE ur.user_id IS NOT NULL), '[]'::json) as roles
+        FROM musicians m
+        LEFT JOIN user_roles ur ON m.user_id = ur.user_id
+        WHERE m.is_active = TRUE
+        GROUP BY m.id ORDER BY m.name
+      `
     }
-
-    if (branchFilter) {
-      query += ` AND m.branch_id = $${params.length + 1}`
-      params.push(branchFilter)
-    }
-
-    query += ` GROUP BY m.id ORDER BY m.name`
-
-    const musicians = await sql(query, params)
     return NextResponse.json(musicians)
   } catch (error) {
     console.error('Musicians fetch error:', error)

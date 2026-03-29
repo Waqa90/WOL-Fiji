@@ -1,6 +1,7 @@
 'use client'
 
-import { useSession, useRouter } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Link from 'next/link'
 import { Music, ChevronRight, LogOut } from 'lucide-react'

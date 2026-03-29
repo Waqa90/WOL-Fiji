@@ -15,33 +15,29 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const fileType = searchParams.get('file_type')
-    const branchId = searchParams.get('branch_id')
     const limit = parseInt(searchParams.get('limit') || '100')
     const offset = parseInt(searchParams.get('offset') || '0')
 
-    let query = `
-      SELECT a.*, u.name as uploaded_by_name
-      FROM asset_uploads a
-      LEFT JOIN users u ON u.id = a.uploaded_by
-      WHERE 1=1
-    `
-
-    const params: any[] = []
-
+    let assets
     if (fileType) {
-      query += ` AND a.file_type = $${params.length + 1}`
-      params.push(fileType)
+      assets = await sql`
+        SELECT a.*, u.name as uploaded_by_name
+        FROM asset_uploads a
+        LEFT JOIN users u ON u.id = a.uploaded_by
+        WHERE a.file_type = ${fileType}
+        ORDER BY a.created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
+    } else {
+      assets = await sql`
+        SELECT a.*, u.name as uploaded_by_name
+        FROM asset_uploads a
+        LEFT JOIN users u ON u.id = a.uploaded_by
+        ORDER BY a.created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `
     }
 
-    if (branchId) {
-      query += ` AND a.branch_id = $${params.length + 1}`
-      params.push(branchId)
-    }
-
-    query += ` ORDER BY a.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`
-    params.push(limit, offset)
-
-    const assets = await sql(query, params)
     return NextResponse.json(assets)
   } catch (error) {
     console.error('Assets fetch error:', error)
