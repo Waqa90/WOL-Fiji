@@ -11,7 +11,7 @@ const handler = NextAuth({
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
         if (!credentials?.email || !credentials?.password) return null
 
         const [user] = await sql`
@@ -22,9 +22,13 @@ const handler = NextAuth({
         const isValid = await bcrypt.compare(credentials.password, user.password_hash)
         if (!isValid) return null
 
-        const roles = await sql`
+        const rolesRaw = await sql`
           SELECT access_level, branch_id FROM user_roles WHERE user_id = ${user.id}
         `
+        const roles = rolesRaw.map((r: any) => ({
+          access_level: Number(r.access_level),
+          branch_id: (r.branch_id as string | null) ?? null,
+        }))
 
         await sql`UPDATE users SET last_login = NOW() WHERE id = ${user.id}`
 
@@ -32,7 +36,7 @@ const handler = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          roles: roles,
+          roles,
           is_first_login: user.is_first_login,
         }
       },
