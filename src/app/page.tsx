@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import HeroSlideshow from '@/components/HeroSlideshow'
 import SectionHeading from '@/components/SectionHeading'
+import RotatingVerse from '@/components/RotatingVerse'
 import { BRANCHES } from '@/lib/constants'
 import { MapPin, Clock, Users, Heart, BookOpen, Music, Sparkles } from 'lucide-react'
 
@@ -110,18 +111,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Blue Scripture Strip */}
-        <div className="bg-primary-dark py-10 text-white text-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-1/4 w-48 h-48 bg-accent rounded-full blur-3xl" />
-          </div>
-          <div className="container-max relative z-10 max-w-3xl mx-auto px-4">
-            <p className="text-xl md:text-2xl font-heading italic text-blue-100 mb-3">
-              &ldquo;For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you.&rdquo;
-            </p>
-            <p className="text-accent font-semibold tracking-widest text-sm">— Jeremiah 29:11</p>
-          </div>
-        </div>
+        {/* Rotating Bible Verse — changes every hour */}
+        <RotatingVerse />
 
         {/* Ministries Preview */}
         <section className="section-padding bg-white relative overflow-hidden">
