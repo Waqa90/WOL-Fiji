@@ -36,7 +36,7 @@ export default function SocialIcons() {
   ]
 
   return (
-    <div className="fixed bottom-6 right-6 md:top-6 md:right-6 md:bottom-auto flex flex-col gap-3 z-40">
+    <div className="fixed top-6 right-6 flex flex-col gap-3 z-40">
       {socials.map((social) => {
         const IconComponent = social.icon
         return (

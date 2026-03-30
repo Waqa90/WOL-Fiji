@@ -12,35 +12,31 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container-max px-4 md:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-28">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/WOL-logo.png"
               alt="Word of Life Worship Centre Fiji"
-              width={64}
-              height={64}
+              width={80}
+              height={80}
               className="object-contain"
               priority
             />
-            <div>
-              <h1 className="text-xl font-heading font-bold text-primary leading-tight">Word of Life</h1>
-              <p className="text-sm text-primary font-semibold tracking-wider">Worship Centre Fiji</p>
-            </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-base text-neutral-800 hover:text-primary font-semibold transition-colors rounded-lg hover:bg-neutral-100"
+                className="px-4 py-2 text-xl text-neutral-800 hover:text-primary font-semibold transition-colors rounded-lg hover:bg-neutral-100"
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/admin" className="ml-4 btn-primary">
+            <Link href="/admin" className="ml-4 btn-primary text-base">
               Admin Login
             </Link>
           </nav>
