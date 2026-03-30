@@ -15,7 +15,7 @@ export default function HomePage() {
         <HeroSlideshow />
 
         {/* Welcome Section */}
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-cream">
           <div className="container-max">
             <SectionHeading
               title="Welcome to Our Church Family"
@@ -48,7 +48,7 @@ export default function HomePage() {
         </section>
 
         {/* Branches Preview */}
-        <section className="section-padding bg-neutral-50">
+        <section className="section-padding bg-paleBlue">
           <div className="container-max">
             <SectionHeading
               title="Our Branches"

@@ -39,4 +39,18 @@
   .label-text {
     @apply block text-sm font-semibold text-neutral-800 mb-1;
   }
+
+  /* Section background helpers */
+  .section-cream {
+    @apply bg-cream;
+  }
+  .section-pale-blue {
+    @apply bg-paleBlue;
+  }
+  .section-white {
+    @apply bg-white;
+  }
+  .section-dark-blue {
+    @apply bg-primary-dark text-white;
+  }
 }
