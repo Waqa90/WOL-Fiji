@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import SectionHeading from '@/components/SectionHeading'
+import RotatingVerse from '@/components/RotatingVerse'
 import { Heart, BookOpen, Globe, Users, Sparkles } from 'lucide-react'
 
 const valueColors = [
@@ -50,16 +51,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Blue Quote */}
-        <div className="bg-primary py-12 text-white text-center">
-          <div className="container-max max-w-3xl mx-auto px-4">
-            <p className="text-4xl text-accent/60 font-heading mb-2">&ldquo;</p>
-            <p className="text-xl md:text-2xl font-heading italic text-blue-100 mb-4">
-              Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.
-            </p>
-            <p className="text-accent font-semibold tracking-widest text-sm">— Matthew 28:19</p>
-          </div>
-        </div>
+        {/* Rotating Bible Verse — changes every hour */}
+        <RotatingVerse />
 
         {/* Values */}
         <section className="section-padding bg-paleBlue">
