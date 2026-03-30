@@ -33,7 +33,9 @@ export default function HeroSlideshow() {
             src={`/images/${slide}`}
             alt={`Slide ${idx + 1}`}
             fill
-            className="object-cover object-top"
+            className={`object-cover object-top transition-transform duration-8000 ${
+              idx === currentSlide ? 'scale-105' : 'scale-100'
+            }`}
             priority={idx === 0}
             quality={85}
           />
