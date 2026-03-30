@@ -9,6 +9,12 @@ import { Heart, CreditCard, Shield } from 'lucide-react'
 
 const presetAmounts = [10, 25, 50, 100, 250, 500]
 
+const infoCardColors = [
+  { bg: 'bg-accent/10', icon: 'text-accent' },
+  { bg: 'bg-primary/10', icon: 'text-primary' },
+  { bg: 'bg-tertiary/10', icon: 'text-tertiary' },
+]
+
 export default function DonatePage() {
   const [amount, setAmount] = useState<number | ''>('')
   const [customAmount, setCustomAmount] = useState('')
@@ -23,10 +29,10 @@ export default function DonatePage() {
           description="Your generous giving helps support our ministry across all 5 branches in Fiji. Every gift makes a difference."
         />
 
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-paleBlue">
           <div className="container-max">
             <div className="max-w-2xl mx-auto">
-              <div className="card border border-gray-100">
+              <div className="card border border-gray-100 animate-fade-in-up">
                 <h2 className="text-2xl font-heading font-bold mb-6 text-center">Make a Donation</h2>
 
                 {/* Amount Selection */}
@@ -37,9 +43,9 @@ export default function DonatePage() {
                       <button
                         key={preset}
                         onClick={() => { setAmount(preset); setCustomAmount('') }}
-                        className={`py-3 rounded-lg font-semibold transition-colors ${
+                        className={`py-3 rounded-lg font-semibold transition-all duration-300 ${
                           amount === preset
-                            ? 'bg-primary text-white'
+                            ? 'bg-gradient-to-r from-primary to-accent text-white shadow-md'
                             : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
                         }`}
                       >
@@ -87,7 +93,7 @@ export default function DonatePage() {
                 </div>
 
                 {/* Submit */}
-                <button className="btn-accent w-full flex items-center justify-center gap-2 text-lg">
+                <button className="btn-vibrant w-full flex items-center justify-center gap-2 text-lg">
                   <CreditCard className="w-5 h-5" />
                   Donate ${amount || customAmount || '0'}
                 </button>
@@ -101,21 +107,23 @@ export default function DonatePage() {
 
               {/* Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="text-center p-4">
-                  <Heart className="w-8 h-8 text-accent mx-auto mb-2" />
-                  <h3 className="font-heading font-bold mb-1">Every Gift Matters</h3>
-                  <p className="text-sm text-gray-600">No amount is too small. God multiplies your generosity.</p>
-                </div>
-                <div className="text-center p-4">
-                  <Shield className="w-8 h-8 text-accent mx-auto mb-2" />
-                  <h3 className="font-heading font-bold mb-1">100% Secure</h3>
-                  <p className="text-sm text-gray-600">All transactions are encrypted and processed by Stripe.</p>
-                </div>
-                <div className="text-center p-4">
-                  <CreditCard className="w-8 h-8 text-accent mx-auto mb-2" />
-                  <h3 className="font-heading font-bold mb-1">Tax Deductible</h3>
-                  <p className="text-sm text-gray-600">Receipts available for your records.</p>
-                </div>
+                {[
+                  { icon: Heart, title: 'Every Gift Matters', desc: 'No amount is too small. God multiplies your generosity.' },
+                  { icon: Shield, title: '100% Secure', desc: 'All transactions are encrypted and processed by Stripe.' },
+                  { icon: CreditCard, title: 'Tax Deductible', desc: 'Receipts available for your records.' },
+                ].map((item, idx) => (
+                  <div
+                    key={item.title}
+                    className="card text-center card-hover group animate-fade-in-up"
+                    style={{ animationDelay: `${idx * 0.1}s` }}
+                  >
+                    <div className={`w-14 h-14 ${infoCardColors[idx].bg} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                      <item.icon className={`w-7 h-7 ${infoCardColors[idx].icon} group-hover:scale-125 transition-transform duration-300`} />
+                    </div>
+                    <h3 className="font-heading font-bold mb-1">{item.title}</h3>
+                    <p className="text-sm text-gray-600">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import SectionHeading from '@/components/SectionHeading'
-import { Calendar, MapPin, Clock } from 'lucide-react'
+import { Calendar, MapPin, Clock, Sparkles } from 'lucide-react'
 
 const sampleEvents = [
   {
@@ -31,6 +31,12 @@ const sampleEvents = [
   },
 ]
 
+const eventIconColors = [
+  'text-primary',
+  'text-secondary',
+  'text-tertiary',
+]
+
 export default function EventsPage() {
   return (
     <>
@@ -42,14 +48,19 @@ export default function EventsPage() {
           description="Stay connected with what's happening at Word of Life Fiji."
         />
 
-        <section className="section-padding bg-white">
+        {/* Regular Services */}
+        <section className="section-padding bg-cream">
           <div className="container-max">
             <SectionHeading title="Regular Services" subtitle="Our weekly gatherings." />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sampleEvents.map((event) => (
-                <div key={event.title} className="card border border-gray-100">
-                  <div className="flex items-center gap-2 text-accent font-semibold text-sm mb-3">
-                    <Calendar className="w-4 h-4" />
+              {sampleEvents.map((event, idx) => (
+                <div
+                  key={event.title}
+                  className="card border border-gray-100 card-hover group animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className={`flex items-center gap-2 font-semibold text-sm mb-3 ${eventIconColors[idx]}`}>
+                    <Calendar className={`w-4 h-4 group-hover:scale-125 transition-transform duration-300`} />
                     {event.date}
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-2">{event.title}</h3>
@@ -68,13 +79,30 @@ export default function EventsPage() {
           </div>
         </section>
 
-        <section className="section-padding bg-neutral-50">
+        {/* Upcoming Events */}
+        <section className="section-padding bg-paleBlue">
           <div className="container-max text-center">
             <SectionHeading title="Upcoming Events" subtitle="Special events will be posted here as they are announced." />
-            <div className="card max-w-lg mx-auto">
-              <Calendar className="w-12 h-12 text-primary/30 mx-auto mb-4" />
+            <div className="card max-w-lg mx-auto card-hover animate-fade-in-up">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-8 h-8 text-primary" />
+              </div>
               <p className="text-gray-500">Check back soon for upcoming special events, conferences, and church activities.</p>
             </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="relative overflow-hidden bg-gradient-to-r from-primary via-secondary to-primary-dark text-white section-padding">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full -mr-32 -mt-32 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24 pointer-events-none" />
+          <Sparkles className="absolute top-6 right-10 w-6 h-6 text-accent/60 animate-bounce-subtle pointer-events-none" />
+          <Sparkles className="absolute bottom-6 left-10 w-5 h-5 text-white/40 animate-bounce-subtle pointer-events-none" style={{ animationDelay: '0.4s' }} />
+          <div className="container-max text-center relative z-10">
+            <h2 className="text-3xl font-heading font-bold mb-4">Join Us This Week</h2>
+            <p className="text-xl text-gray-200 mb-6 max-w-2xl mx-auto">
+              Whether it is your first visit or you have been coming for years, there is always a place for you at Word of Life.
+            </p>
           </div>
         </section>
       </main>

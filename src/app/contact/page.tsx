@@ -28,25 +28,29 @@ export default function ContactPage() {
           description="We would love to hear from you. Send us a message or submit a prayer request."
         />
 
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-cream">
           <div className="container-max">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Form */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 animate-fade-in-up">
                 {/* Toggle */}
                 <div className="flex gap-2 mb-8">
                   <button
                     onClick={() => { setFormType('contact'); setSubmitted(false) }}
-                    className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                      formType === 'contact' ? 'bg-primary text-white' : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
+                    className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                      formType === 'contact'
+                        ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-md'
+                        : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
                     }`}
                   >
                     Contact Form
                   </button>
                   <button
                     onClick={() => { setFormType('prayer'); setSubmitted(false) }}
-                    className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                      formType === 'prayer' ? 'bg-primary text-white' : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
+                    className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                      formType === 'prayer'
+                        ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-md'
+                        : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
                     }`}
                   >
                     Prayer Request
@@ -144,7 +148,7 @@ export default function ContactPage() {
                       </label>
                     )}
 
-                    <button type="submit" className="btn-primary flex items-center gap-2">
+                    <button type="submit" className="btn-vibrant flex items-center gap-2">
                       <Send className="w-5 h-5" />
                       {formType === 'contact' ? 'Send Message' : 'Submit Prayer Request'}
                     </button>
@@ -153,8 +157,8 @@ export default function ContactPage() {
               </div>
 
               {/* Sidebar */}
-              <div className="space-y-6">
-                <div className="card">
+              <div className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+                <div className="card bg-paleBlue/50">
                   <h3 className="text-xl font-heading font-bold mb-4">Church Information</h3>
                   <div className="space-y-4 text-sm text-gray-600">
                     <p className="flex items-start gap-3">
@@ -168,7 +172,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="card bg-primary/5">
+                <div className="card bg-primary/10">
                   <h3 className="text-xl font-heading font-bold mb-3">Service Times</h3>
                   <p className="text-gray-600">
                     <span className="font-semibold">Sunday Worship:</span> 10:00 AM
