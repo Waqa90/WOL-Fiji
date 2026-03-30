@@ -80,14 +80,19 @@ export default function EventsPage() {
         </section>
 
         {/* Upcoming Events */}
-        <section className="section-padding bg-paleBlue">
+        <section className="section-padding bg-primary relative overflow-hidden">
           <div className="container-max text-center">
-            <SectionHeading title="Upcoming Events" subtitle="Special events will be posted here as they are announced." />
-            <div className="card max-w-lg mx-auto card-hover animate-fade-in-up">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-8 h-8 text-primary" />
+            <div className="mb-10">
+              <p className="text-accent font-semibold tracking-wider uppercase text-sm mb-3">Stay Tuned</p>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Upcoming Events</h2>
+              <p className="text-blue-200 max-w-xl mx-auto">Special events will be posted here as they are announced.</p>
+              <div className="w-24 h-1.5 bg-gradient-to-r from-accent via-secondary to-tertiary rounded-full mx-auto mt-4" />
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl p-8 max-w-lg mx-auto animate-fade-in-up">
+              <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-8 h-8 text-accent" />
               </div>
-              <p className="text-gray-500">Check back soon for upcoming special events, conferences, and church activities.</p>
+              <p className="text-blue-100">Check back soon for upcoming special events, conferences, and church activities.</p>
             </div>
           </div>
         </section>

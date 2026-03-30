@@ -30,6 +30,28 @@ export default function ContactPage() {
 
         <section className="section-padding bg-cream">
           <div className="container-max">
+            {/* Blue highlight bar */}
+            <div className="bg-primary rounded-2xl p-6 mb-10 text-white flex flex-col md:flex-row items-center gap-6 animate-fade-in-down">
+              <div className="flex-1 text-center md:text-left">
+                <p className="text-accent font-semibold text-sm uppercase tracking-wider mb-1">We are here for you</p>
+                <h3 className="text-xl font-heading font-bold">Reach out anytime — prayer, questions, or just to connect.</h3>
+              </div>
+              <div className="flex gap-6 text-center flex-shrink-0">
+                <div>
+                  <div className="text-2xl">✉️</div>
+                  <div className="text-xs text-blue-200 mt-1">Email us</div>
+                </div>
+                <div>
+                  <div className="text-2xl">🙏</div>
+                  <div className="text-xs text-blue-200 mt-1">Prayer</div>
+                </div>
+                <div>
+                  <div className="text-2xl">📍</div>
+                  <div className="text-xs text-blue-200 mt-1">Find us</div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Form */}
               <div className="lg:col-span-2 animate-fade-in-up">
@@ -172,12 +194,12 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="card bg-primary/10">
-                  <h3 className="text-xl font-heading font-bold mb-3">Service Times</h3>
-                  <p className="text-gray-600">
-                    <span className="font-semibold">Sunday Worship:</span> 10:00 AM
+                <div className="card bg-primary text-white">
+                  <h3 className="text-xl font-heading font-bold mb-3 text-white">Service Times</h3>
+                  <p className="text-blue-100">
+                    <span className="text-accent font-semibold">Sunday Worship:</span> 10:00 AM
                   </p>
-                  <p className="text-sm text-gray-500 mt-2">All branches</p>
+                  <p className="text-sm text-blue-200 mt-2">All branches</p>
                 </div>
               </div>
             </div>

@@ -14,6 +14,26 @@ export default function HomePage() {
         {/* Hero Slideshow */}
         <HeroSlideshow />
 
+        {/* Blue Stats Banner */}
+        <section className="bg-primary text-white py-8">
+          <div className="container-max">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              {[
+                { number: '5', label: 'Branches', icon: '🏛️' },
+                { number: '12+', label: 'Years Serving', icon: '📖' },
+                { number: '5', label: 'Islands', icon: '🌺' },
+                { number: '100%', label: 'Spirit-led', icon: '✝️' },
+              ].map((stat) => (
+                <div key={stat.label} className="animate-fade-in-up">
+                  <div className="text-3xl mb-1">{stat.icon}</div>
+                  <div className="text-3xl md:text-4xl font-heading font-bold text-accent">{stat.number}</div>
+                  <div className="text-sm text-blue-200 font-semibold tracking-wider uppercase mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Welcome Section */}
         <section className="section-padding bg-cream relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full -mr-32 -mt-32 pointer-events-none" />
@@ -89,6 +109,19 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Blue Scripture Strip */}
+        <div className="bg-primary-dark py-10 text-white text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-1/4 w-48 h-48 bg-accent rounded-full blur-3xl" />
+          </div>
+          <div className="container-max relative z-10 max-w-3xl mx-auto px-4">
+            <p className="text-xl md:text-2xl font-heading italic text-blue-100 mb-3">
+              &ldquo;For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you.&rdquo;
+            </p>
+            <p className="text-accent font-semibold tracking-widest text-sm">— Jeremiah 29:11</p>
+          </div>
+        </div>
 
         {/* Ministries Preview */}
         <section className="section-padding bg-white relative overflow-hidden">

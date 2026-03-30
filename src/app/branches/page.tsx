@@ -29,6 +29,29 @@ export default function BranchesPage() {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/10 rounded-full -ml-24 -mb-24 pointer-events-none" />
           <div className="container-max relative z-10">
             <SectionHeading title="Our Branches" subtitle="Five communities, one family of faith across the islands." />
+
+            {/* Blue info row */}
+            <div className="bg-primary rounded-2xl p-6 mb-10 text-white flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in-up">
+              <div className="text-center sm:text-left">
+                <p className="text-accent font-semibold text-sm tracking-wider uppercase mb-1">Serving Fiji Since 2012</p>
+                <h3 className="text-2xl font-heading font-bold">5 Communities. One Family.</h3>
+              </div>
+              <div className="flex gap-6 text-center">
+                <div>
+                  <div className="text-3xl font-bold text-accent">5</div>
+                  <div className="text-xs text-blue-200 uppercase tracking-wider">Branches</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-accent">1</div>
+                  <div className="text-xs text-blue-200 uppercase tracking-wider">Vision</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-accent">∞</div>
+                  <div className="text-xs text-blue-200 uppercase tracking-wider">Grace</div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {BRANCHES.map((branch, index) => {
                 const colors = branchColors[index % branchColors.length]

@@ -128,6 +128,36 @@ export default function DonatePage() {
             </div>
           </div>
         </section>
+        {/* Why Giving Matters - Blue section */}
+        <section className="bg-primary text-white section-padding relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full -mr-36 -mt-36 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24 pointer-events-none" />
+          <div className="container-max relative z-10">
+            <div className="text-center mb-12">
+              <p className="text-accent font-semibold tracking-wider uppercase text-sm mb-3">Your Generosity</p>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Why Giving Matters</h2>
+              <div className="w-24 h-1.5 bg-gradient-to-r from-accent via-secondary to-tertiary rounded-full mx-auto" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { icon: '⛪', title: 'Fund Our Branches', desc: 'Your giving keeps all 5 branches running — lights on, doors open, and communities reached.' },
+                { icon: '🎓', title: 'Equip Leaders', desc: 'Train pastors, equip ministers, and send teams across the Fiji Islands to preach the Gospel.' },
+                { icon: '🌏', title: 'Reach the Islands', desc: 'Help us extend our reach to every island and village across Fiji and beyond.' },
+              ].map((item, idx) => (
+                <div key={item.title} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center animate-fade-in-up card-hover" style={{ animationDelay: `${idx * 0.1}s` }}>
+                  <div className="text-4xl mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-heading font-bold text-white mb-3">{item.title}</h3>
+                  <p className="text-blue-100 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <p className="text-blue-200 italic text-lg font-heading">
+                &ldquo;Each of you should give what you have decided in your heart to give...&rdquo; — 2 Corinthians 9:7
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

@@ -50,6 +50,17 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Blue Quote */}
+        <div className="bg-primary py-12 text-white text-center">
+          <div className="container-max max-w-3xl mx-auto px-4">
+            <p className="text-4xl text-accent/60 font-heading mb-2">&ldquo;</p>
+            <p className="text-xl md:text-2xl font-heading italic text-blue-100 mb-4">
+              Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.
+            </p>
+            <p className="text-accent font-semibold tracking-widest text-sm">— Matthew 28:19</p>
+          </div>
+        </div>
+
         {/* Values */}
         <section className="section-padding bg-paleBlue">
           <div className="container-max">
@@ -78,17 +89,22 @@ export default function AboutPage() {
         </section>
 
         {/* Leadership */}
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-primary relative overflow-hidden">
           <div className="container-max">
-            <SectionHeading title="Our Leadership" subtitle="Meet the pastors and leaders serving our church family." />
+            <div className="text-center mb-12">
+              <p className="text-accent font-semibold tracking-wider uppercase text-sm mb-3">Meet the Team</p>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Our Leadership</h2>
+              <p className="text-blue-200 max-w-xl mx-auto">Meet the pastors and leaders serving our church family.</p>
+              <div className="w-24 h-1.5 bg-gradient-to-r from-accent via-secondary to-tertiary rounded-full mx-auto mt-4" />
+            </div>
             <div className="max-w-2xl mx-auto">
-              <div className="card text-center card-hover animate-fade-in-up">
-                <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-full mx-auto mb-4 flex items-center justify-center">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl p-8 text-center animate-fade-in-up">
+                <div className="w-24 h-24 bg-gradient-to-br from-accent to-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-3xl font-heading font-bold text-white">LN</span>
                 </div>
-                <h3 className="text-2xl font-heading font-bold">Mr Liuaki Nacagilevu</h3>
+                <h3 className="text-2xl font-heading font-bold text-white">Mr Liuaki Nacagilevu</h3>
                 <p className="text-accent font-semibold mb-3">Senior Pastor</p>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-blue-100 leading-relaxed">
                   Leading Word of Life Fiji with vision, faith, and a heart for the people of Fiji.
                   Under his leadership, the church has grown to serve 5 communities across the islands.
                 </p>
