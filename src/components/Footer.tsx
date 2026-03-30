@@ -24,13 +24,9 @@ export default function Footer() {
               className="object-contain drop-shadow-lg"
             />
           </div>
-          <div className="text-center">
-            <h3 className="text-2xl font-heading font-bold text-primary mb-1">Word of Life</h3>
-            <p className="text-accent font-semibold tracking-wider">Worship Centre Fiji</p>
-            <p className="text-sm text-neutral-600 mt-3 max-w-md">
-              A Christ-centered church serving communities across the Fiji Islands.
-            </p>
-          </div>
+          <p className="text-sm text-neutral-600 text-center max-w-md">
+            A Christ-centered church serving communities across the Fiji Islands.
+          </p>
         </div>
       </div>
 

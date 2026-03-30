@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Providers from '@/components/Providers'
-import SocialIcons from '@/components/SocialIcons'
 
 export const metadata: Metadata = {
   title: 'Word of Life Fiji',
@@ -18,7 +17,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>{children}</Providers>
-        <SocialIcons />
       </body>
     </html>
   )
